@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import NewConversationRoomSchema from "../utils/validationSchema/newConversationRoomSchema";
 import { useState } from "react";
 import template from "../utils/template";
+import LoadingAuth from "./LoadingAuth";
 
 const NewConversationRoom = () => {
   const [messageError, setMessageError] = useState("");
@@ -23,6 +24,7 @@ const NewConversationRoom = () => {
   });
 
   const createNewConversationRoom = async (input) => {
+    setMessageError("");
     setLoading(true);
 
     const res = await axios.post(`${template}api/conversation`, {
@@ -77,11 +79,12 @@ const NewConversationRoom = () => {
           )}
         />
         <button type="submit" className="newConversationRoom-btn">
-          Create
+          {!loading ? <div>Create</div> : <LoadingAuth />}
         </button>
+        {messageError && (
+          <p className="existingConversationRoomError">{messageError}</p>
+        )}
       </form>
-      {loading && <p>Loading ...</p>}
-      {messageError && <p>{messageError}</p>}
     </main>
   );
 };

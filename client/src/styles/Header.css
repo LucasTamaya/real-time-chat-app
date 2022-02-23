@@ -1,11 +1,13 @@
 .headerBg{
     width: 100vw;
     background-color: var(--main-blue);
-    padding: 20px;
+    height: 10vh;
+    display: flex;
 }
 
 .headerContainer{
     max-width: 1000px;
+    flex: 1;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;

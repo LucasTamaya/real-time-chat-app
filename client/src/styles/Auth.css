@@ -58,7 +58,7 @@
   align-items: center;
 }
 
-.formContainer-signBtn:hover{
+.formContainer-signBtn:hover {
   background-color: var(--hover-blue);
 }
 
@@ -74,13 +74,13 @@
 }
 
 /* Message erreur */
-.authMessageError{
+.authMessageError {
   font-size: 1.3rem;
   color: red;
   text-align: center;
 }
 
-.formContainer-changeMethodConnexionBtn:hover{
+.formContainer-changeMethodConnexionBtn:hover {
   background-color: var(--hover-green);
 }
 
@@ -92,14 +92,9 @@
     column-gap: 150px;
   }
 
-  .registerTitle{
-    /* background-color: green; */
-  }
-
   .formContainer {
     margin: 0;
     width: 270px;
-    /* background-color: red; */
   }
 
   .registerTitle-h1 {
@@ -124,11 +119,4 @@
     height: 40px;
     width: 270px;
   }
-
-  /* Message erreur */
-/* .authMessageError{
-  position: absolute;
-  bottom: 0;
-  right: 0;
-} */
 }

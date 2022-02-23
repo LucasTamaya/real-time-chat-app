@@ -1,9 +1,8 @@
-import "../styles/Loading.css";
+import "../styles/LoadingAuth.css";
 
-const Loading = () => {
+const LoadingAuth = () => {
   return (
-    // <div className="loadingContainer">
-      <div className="lds-roller">
+      <div className="lds-roller-auth">
         <div></div>
         <div></div>
         <div></div>
@@ -13,8 +12,7 @@ const Loading = () => {
         <div></div>
         <div></div>
       </div>
-    // </div>
   );
 };
 
-export default Loading;
+export default LoadingAuth;

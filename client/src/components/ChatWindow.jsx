@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import template from "../utils/template";
+import LoadingData from "./LoadingData";
 
 const Chat = () => {
   const [conversationList, setConversationList] = useState([]);
@@ -34,27 +35,28 @@ const Chat = () => {
 
   return (
     <div className="mainConversationContainer">
-      <h1 className="chat-title">Chat window</h1>
+      {loading && <LoadingData />}
 
-      {loading && <p>Loading ...</p>}
-
-      {messageError && <p>{messageError}</p>}
+      {messageError && <p className="chatWindowMessageError">{messageError}</p>}
 
       {conversationList && (
-        <div className="conversationContainer">
-          {conversationList.map((x) => (
-            <Link
-              key={x._id}
-              to={`/conversation/${x.roomName}`}
-              className="conversationContainer-item"
-            >
-              <h2 className="conversationContainer-h2">{x.roomName}</h2>
-              <ArrowForwardIosIcon
-                className="conversationContainer-icon"
-                sx={{ transition: "0.2s ease", fontSize: 18 }}
-              />
-            </Link>
-          ))}
+        <div>
+          <h1 className="chat-title">All conversations</h1>
+          <div className="conversationContainer">
+            {conversationList.map((x) => (
+              <Link
+                key={x._id}
+                to={`/conversation/${x.roomName}`}
+                className="conversationContainer-item"
+              >
+                <h2 className="conversationContainer-h2">{x.roomName}</h2>
+                <ArrowForwardIosIcon
+                  className="conversationContainer-icon"
+                  sx={{ transition: "0.2s ease", fontSize: 18 }}
+                />
+              </Link>
+            ))}
+          </div>
         </div>
       )}
     </div>

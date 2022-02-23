@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import io from "socket.io-client";
 import axios from "axios";
 import template from "../utils/template";
+import SendIcon from "@mui/icons-material/Send";
 
 // connecte le client au serveur
 // const socket = io("https://react-real-time-chat-backend.herokuapp.com/");
@@ -12,7 +13,6 @@ const socket = io("http://localhost:3001");
 const ConversationRoom = () => {
   // represente le message qu'on est entrain de taper
   const [currentMessage, setCurrentMessage] = useState("");
-
 
   const [messageList, setMessageList] = useState([]);
   const [messageError, setMessageError] = useState("");
@@ -23,9 +23,7 @@ const ConversationRoom = () => {
 
   // recuperation des messages precedents
   const fetching = async () => {
-    const res = await axios.get(
-      `${template}api/messages/${roomName}`
-    );
+    const res = await axios.get(`${template}api/messages/${roomName}`);
     const data = await res;
 
     if (data.data.message === "Fetch error") {
@@ -42,7 +40,7 @@ const ConversationRoom = () => {
   useEffect(() => {
     fetching();
 
-    console.log("status du socket", socket)
+    console.log("status du socket", socket);
 
     //   connecte le socket client à la conversation room crée
     socket.emit("joinRoom", roomName);
@@ -52,11 +50,12 @@ const ConversationRoom = () => {
     });
 
     socket.on("connect_error", () => {
-      alert("connexion error with socket")
+      alert("connexion error with socket");
     });
   }, [socket]);
 
-  const sendMessage = async () => {
+  const sendMessage = async (e) => {
+    e.preventDefault();
     if (currentMessage !== "") {
       //requete vers websockets et api
       const messageData = {
@@ -72,11 +71,52 @@ const ConversationRoom = () => {
       //   envoit de la data au socket coté backend
       await socket.emit("sendMessage", messageData);
       setMessageList((prev) => [...prev, messageData]);
+
+      setCurrentMessage("");
     }
   };
 
   return (
-    <main className="mainConversationRoom-container">
+    <main className="conversationRoom-container">
+      <h1 className="conversationRoom-title">{roomName} Conversation</h1>
+
+      {messageList && (
+        <div className="messagesContainer">
+          {messageList.map(x => (
+            <div className={`${x.sender === sessionStorage.getItem("username") ? "senderMessage-container" : "guestMessage-container"}`}>
+              <p className="message-paragraph">{x.message}</p>
+            </div>
+          ))}
+        </div>
+      )}
+  
+      {/* <div className="messagesContainer">
+        <div className="senderMessage-container">
+          <p className="senderMessage-paragraph">Voila un message hyhfyhf uvugihip lihouiujbguo</p>
+        </div>
+      </div> */}
+
+      <form className="conversationRoom-inputContainer" onSubmit={sendMessage}>
+        <input
+          type="text"
+          placeholder="Chat"
+          value={currentMessage}
+          className="conversationRoom-inputContainer-input"
+          onChange={(e) => setCurrentMessage(e.target.value)}
+        />
+        <button type="submit" className="conversationRoom-inputContainer-btn">
+          <SendIcon sx={{ color: "var(--main-blue)" }} />
+        </button>
+      </form>
+    </main>
+  );
+};
+
+export default ConversationRoom;
+
+/*
+
+<main className="mainConversationRoom-container">
       <h1 className="conversationRoom-title">{roomName} Conversation Room</h1>
       <div className="chatContainer">
         <div className="messageContainer">
@@ -86,7 +126,7 @@ const ConversationRoom = () => {
             <div>
               {messageList.map((x) => (
                 <div>
-                  <p>
+                  <p className={`${x.sender === sessionStorage.getItem("username") ? "senderMessage" : "guestMessage"}`}>
                     {x.sender} - {x.message}
                   </p>
                 </div>
@@ -111,7 +151,5 @@ const ConversationRoom = () => {
         </div>
       </div>
     </main>
-  );
-};
 
-export default ConversationRoom;
+*/

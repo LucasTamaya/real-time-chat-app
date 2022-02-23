@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import template from "../utils/template";
-import Loading from "./Loading";
+import LoadingAuth from "./LoadingAuth";
 
 const Login = () => {
   const [messageError, setMessageError] = useState("");
@@ -107,7 +107,7 @@ const Login = () => {
           )}
         />
         <button type="submit" className="formContainer-signBtn">
-          {!loading ? <div>Sign In</div> : <Loading />}
+          {!loading ? <div>Sign In</div> : <LoadingAuth />}
         </button>
         <Link to="/">
           <button className="formContainer-changeMethodConnexionBtn">

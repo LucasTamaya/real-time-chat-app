@@ -51,3 +51,9 @@
   transform: rotate(0);
   color: white;
 }
+
+.chatWindowMessageError{
+  color: red;
+  font-size: 2rem;
+  text-align: center;
+}

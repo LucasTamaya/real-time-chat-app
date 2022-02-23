@@ -7,7 +7,7 @@ import axios from "axios";
 import { useState } from "react";
 import { AvatarGenerator } from "random-avatar-generator";
 import template from "../utils/template";
-import Loading from "./Loading";
+import LoadingAuth from "./LoadingAuth";
 
 const Register = () => {
   const [messageError, setMessageError] = useState("");
@@ -135,7 +135,7 @@ const Register = () => {
         />
         <button type="submit" className="formContainer-signBtn">
           {/* Register */}
-          {!loading ? <div>Register</div> : <Loading />}
+          {!loading ? <div>Register</div> : <LoadingAuth />}
         </button>
         <Link to="/login">
           <button className="formContainer-changeMethodConnexionBtn">

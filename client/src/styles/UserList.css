@@ -34,16 +34,13 @@
     color: white;
 }
 
-
-
-
-
-
-
-
-
-
-
 .userContainer-avatar{
     width: 45px;
+}
+
+/* Message erreur */
+.userListMessageError{
+    color: red;
+    font-size: 2rem;
+    text-align: center;
 }

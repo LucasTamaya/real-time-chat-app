@@ -2,6 +2,7 @@ import "../styles/UserList.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import template from "../utils/template";
+import LoadingData from "./LoadingData";
 
 const UserList = () => {
   const [userList, setUserList] = useState([]);
@@ -34,11 +35,11 @@ const UserList = () => {
 
   return (
     <main className="mainUserList-container">
-      <h1 className="userList-title">List of users</h1>
-      {loading && <p>loading...</p>}
-      {messageError && <p>{messageError}</p>}
+      {loading && <LoadingData />}
+      {messageError && <p className="userListMessageError">{messageError}</p>}
       {userList && (
         <div>
+          <h1 className="userList-title">List of users</h1>
           {userList.map((x) => (
             <div key={x._id} className="userContainer">
               <img
