@@ -9,6 +9,8 @@
 	font-size: 10px;
 	--main-blue: #005b96;
 	--main-green: #10a537;
+	--hover-blue: #005a96c9;
+	--hover-green: #10a538d2;
 }
 
 p{
@@ -26,6 +28,7 @@ body {
 		'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	overflow-x: hidden;
 }
 
 code {

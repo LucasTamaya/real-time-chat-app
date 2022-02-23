@@ -1,6 +1,6 @@
 .registerContainer {
   width: 100vw;
-  height: 100vh;
+  height: 85vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,47 +18,117 @@
   text-align: center;
 }
 
-.formContainer{
-    display: flex;
-    flex-direction: column;
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 15px;
+  width: 200px;
+  margin: 0 auto;
+}
+
+.formContainer-input {
+  width: 200px;
+  height: 35px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid grey;
+}
+
+.formContainer-input:focus {
+  outline: none;
+}
+
+.formContainer-input-error {
+  color: red;
+  font-size: 1rem;
+}
+
+.formContainer-signBtn {
+  width: 100%;
+  border-radius: 5px;
+  height: 35px;
+  border: none;
+  background-color: var(--main-blue);
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formContainer-signBtn:hover{
+  background-color: var(--hover-blue);
+}
+
+.formContainer-changeMethodConnexionBtn {
+  height: 35px;
+  width: 200px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  background-color: var(--main-green);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Message erreur */
+.authMessageError{
+  font-size: 1.3rem;
+  color: red;
+  text-align: center;
+}
+
+.formContainer-changeMethodConnexionBtn:hover{
+  background-color: var(--hover-green);
+}
+
+@media screen and (min-width: 768px) {
+  .registerContainer {
+    flex-direction: row;
+    row-gap: none;
     align-items: center;
-    row-gap: 15px;
-    width: 200px;
-    margin: 0 auto;
-}
+    column-gap: 150px;
+  }
 
-.formContainer-input{
-    width: 200px;
-    height: 30px;
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid grey;
-}
+  .registerTitle{
+    /* background-color: green; */
+  }
 
-.formContainer-input:focus{
-    outline: none;
-}
+  .formContainer {
+    margin: 0;
+    width: 270px;
+    /* background-color: red; */
+  }
 
-.formContainer-input-error{
-    color: red;
-}
+  .registerTitle-h1 {
+    font-size: 4.7rem;
+  }
 
-.formContainer-signBtn{
-    width: 100%;
-    border-radius: 5px;
-    height: 30px;
-    border: none;
-    background-color: var(--main-blue);
-    cursor: pointer;
-    color: white;
-}
+  .registerTitle-h2 {
+    font-size: 1.8rem;
+  }
 
-.formContainer-changeMethodConnexionBtn{
-    height: 30px;
-    width: 150px;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    background-color: var(--main-green);
-    cursor: pointer;
+  .formContainer-input {
+    height: 40px;
+    width: 270px;
+  }
+
+  .formContainer-signBtn {
+    height: 40px;
+    width: 270px;
+  }
+
+  .formContainer-changeMethodConnexionBtn {
+    height: 40px;
+    width: 270px;
+  }
+
+  /* Message erreur */
+/* .authMessageError{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+} */
 }

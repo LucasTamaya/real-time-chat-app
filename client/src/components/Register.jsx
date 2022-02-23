@@ -7,6 +7,7 @@ import axios from "axios";
 import { useState } from "react";
 import { AvatarGenerator } from "random-avatar-generator";
 import template from "../utils/template";
+import Loading from "./Loading";
 
 const Register = () => {
   const [messageError, setMessageError] = useState("");
@@ -39,6 +40,7 @@ const Register = () => {
   });
 
   const handleRegister = async (input) => {
+    setMessageError("");
     setLoading(true);
     const randomAvatar = generator.generateRandomAvatar(); //génère une url d'un avatar random
 
@@ -132,16 +134,16 @@ const Register = () => {
           )}
         />
         <button type="submit" className="formContainer-signBtn">
-          Register
+          {/* Register */}
+          {!loading ? <div>Register</div> : <Loading />}
         </button>
         <Link to="/login">
           <button className="formContainer-changeMethodConnexionBtn">
             Sign In
           </button>
         </Link>
+        {messageError && <p className="authMessageError">{messageError}</p>}
       </form>
-      {loading && <p>Loading ...</p>}
-      {messageError && <p>{messageError}</p>}
     </main>
   );
 };

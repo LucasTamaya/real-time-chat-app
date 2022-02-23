@@ -6,7 +6,8 @@ import axios from "axios";
 import template from "../utils/template";
 
 // connecte le client au serveur
-const socket = io("https://react-real-time-chat-backend.herokuapp.com/");
+// const socket = io("https://react-real-time-chat-backend.herokuapp.com/");
+const socket = io("http://localhost:3001");
 
 const ConversationRoom = () => {
   // represente le message qu'on est entrain de taper

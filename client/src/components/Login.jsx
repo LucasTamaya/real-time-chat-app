@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import template from "../utils/template";
+import Loading from "./Loading";
 
 const Login = () => {
   const [messageError, setMessageError] = useState("");
@@ -32,8 +33,8 @@ const Login = () => {
   });
 
   const handleAuth = async (input) => {
+    setMessageError("");
     setLoading(true);
-
     const res = await axios.post(`${template}api/auth/login`, {
       email: input.email,
       password: input.password,
@@ -106,16 +107,15 @@ const Login = () => {
           )}
         />
         <button type="submit" className="formContainer-signBtn">
-          Sign In
+          {!loading ? <div>Sign In</div> : <Loading />}
         </button>
         <Link to="/">
           <button className="formContainer-changeMethodConnexionBtn">
             Register
           </button>
         </Link>
+        {messageError && <p className="authMessageError">{messageError}</p>}
       </form>
-      {loading && <p>Loading ...</p>}
-      {messageError && <p>{messageError}</p>}
     </main>
   );
 };
