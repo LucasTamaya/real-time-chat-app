@@ -57,9 +57,10 @@ const Register = () => {
     }
 
     if (!data.data.message) {
-      navigate("/welcome-page");
-      localStorage.setItem("username", data.data.username);
+      // localStorage.setItem("username", data.data.username);
+      sessionStorage.setItem("username", data.data.username);
       setLoading(false);
+      navigate("/welcome-page");
     }
     console.log(data);
   };

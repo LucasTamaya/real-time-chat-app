@@ -49,9 +49,10 @@ const Login = () => {
 
     // si aucune erreur, on redirige l'utilisateur vers la page de chat en enregistrant son nom dans le local storage
     if (!data.data.message) {
-      navigate("/welcome-page")
-      localStorage.setItem("username", data.data.username);
-      setLoading(false)
+      // localStorage.setItem("username", data.data.username);
+      sessionStorage.setItem("username", data.data.username);
+      setLoading(false);
+      navigate("/welcome-page");
     }
     console.log(data);
   };

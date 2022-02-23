@@ -30,9 +30,11 @@ router.post("/api/auth/register", async (req, res) => {
   //   si utilisateur non existant
   if (existingUser.length < 1) {
     console.log("nouvel utilisateur");
+
     // hash du password avec bcrypt
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password, salt);
+    
     // enregistre le nouvel utilisateur dans MongoDB
     const newUser = await db.collection("users").insertOne({
       email: email,

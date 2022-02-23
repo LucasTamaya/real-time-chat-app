@@ -56,7 +56,7 @@ const ConversationRoom = () => {
       //requete vers websockets et api
       const messageData = {
         conversationRoomName: roomName,
-        sender: localStorage.getItem("username"),
+        sender: sessionStorage.getItem("username"),
         message: currentMessage,
         date:
           new Date(Date.now()).getHours() +
