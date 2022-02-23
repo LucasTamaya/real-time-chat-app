@@ -6,7 +6,7 @@ import axios from "axios";
 import template from "../utils/template";
 
 // connecte le client au serveur
-const socket = io.connect(`${template}`);
+const socket = io("https://react-real-time-chat-backend.herokuapp.com/");
 
 const ConversationRoom = () => {
   // represente le message qu'on est entrain de taper
@@ -41,13 +41,17 @@ const ConversationRoom = () => {
   useEffect(() => {
     fetching();
 
-    console.log(socket)
+    console.log("status du socket", socket)
 
     //   connecte le socket client à la conversation room crée
     socket.emit("joinRoom", roomName);
 
     socket.on("receiveMessage", (data) => {
       setMessageList((prev) => [...prev, data]);
+    });
+
+    socket.on("connect_error", () => {
+      alert("connexion error with socket")
     });
   }, [socket]);
 

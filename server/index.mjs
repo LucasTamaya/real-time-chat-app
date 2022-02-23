@@ -1,17 +1,12 @@
 import connectToDatabase from "./utils/mongodb.mjs";
 import express from "express";
 import cors from "cors";
+import http from "http";
+import { Server } from "socket.io";
 import authRoutes from "./routes/authRoutes.mjs"; // toutes les routes liées à la connexion
 import userListRoute from "./routes/userListRoute.mjs";
 import conversationRoomRoutes from "./routes/conversationRoomRoutes.mjs";
 import previousMessagesRoute from "./routes/previousMessagesRoute.mjs";
-import http from "http";
-import { Server } from "socket.io";
-// import login from "./api/auth/login.mjs";
-// import register from "./api/auth/register.mjs";
-// import conversation from "./api/conversation.mjs";
-// import roomName from "./api/messages/[roomName].mjs";
-// import userList from "./api/userList.mjs";
 
 const app = express();
 app.use(cors());
