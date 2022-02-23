@@ -1,0 +1,42 @@
+.mainNewConversationRoom-container {
+  padding: 20px;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.newConversationRoom-title {
+  text-align: center;
+}
+
+.newConversationRoom-form {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  width: 200px;
+  justify-content: center;
+}
+
+.newConversationRoom-input {
+  height: 30px;
+  width: 200px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid grey;
+}
+
+.newConversationRoom-input:focus{
+    outline: none;
+}
+
+.newConversationRoom-btn {
+  border-radius: 5px;
+  height: 30px;
+  border: none;
+  background-color: var(--main-blue);
+  cursor: pointer;
+  color: white;
+}

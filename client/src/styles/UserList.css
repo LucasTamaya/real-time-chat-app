@@ -1,0 +1,49 @@
+.mainUserList-container{
+    padding: 20px;
+}
+
+.userList-title{
+    text-align: center;
+}
+
+.userContainer{
+    display: flex;
+    max-width: 600px;
+    justify-content: flex-start;
+    align-items: center;
+    margin:0 auto;
+    box-shadow: 1px 3px 22px -5px rgba(0,0,0,0.27);
+    padding: 8px;
+    border-radius: 15px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    column-gap: 15px;
+    cursor: pointer;
+    transition: background-color ease-out 0.2s;
+}
+
+.userContainer:hover{
+    background-color: var(--main-blue);
+}
+
+.userContainer-name{
+    transition: color ease-out 0.2s;
+}
+
+.userContainer:hover .userContainer-name{
+    color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+.userContainer-avatar{
+    width: 45px;
+}

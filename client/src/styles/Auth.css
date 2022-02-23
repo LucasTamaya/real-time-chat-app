@@ -1,0 +1,64 @@
+.registerContainer {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 30px;
+  padding: 20px;
+}
+
+.registerTitle-h1 {
+  color: var(--main-blue);
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.registerTitle-h2 {
+  text-align: center;
+}
+
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 15px;
+    width: 200px;
+    margin: 0 auto;
+}
+
+.formContainer-input{
+    width: 200px;
+    height: 30px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid grey;
+}
+
+.formContainer-input:focus{
+    outline: none;
+}
+
+.formContainer-input-error{
+    color: red;
+}
+
+.formContainer-signBtn{
+    width: 100%;
+    border-radius: 5px;
+    height: 30px;
+    border: none;
+    background-color: var(--main-blue);
+    cursor: pointer;
+    color: white;
+}
+
+.formContainer-changeMethodConnexionBtn{
+    height: 30px;
+    width: 150px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: var(--main-green);
+    cursor: pointer;
+}

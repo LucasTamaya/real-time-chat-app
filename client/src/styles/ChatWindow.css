@@ -1,0 +1,53 @@
+.mainConversationContainer{
+  padding: 20px;
+}
+
+.chat-title{
+  text-align: center;
+}
+
+.conversationContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.conversationContainer-item {
+  border: 2px solid var(--main-blue);
+  width: 100%;
+  box-shadow: 1px 3px 22px -5px rgba(0, 0, 0, 0.27);
+  padding: 8px;
+  border-radius: 15px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.2s ease;
+}
+
+.conversationContainer-item:hover{
+  background-color: var(--main-blue);
+}
+
+.conversationContainer-h2{
+  color: var(--main-blue);
+  transition: color 0.2s ease;
+}
+
+
+.conversationContainer-icon{
+  transform: rotate(90deg);
+  color: var(--main-blue);
+}
+
+.conversationContainer-item:hover .conversationContainer-h2{
+  color: white;
+}
+
+.conversationContainer-item:hover .conversationContainer-icon{
+  transform: rotate(0);
+  color: white;
+}
