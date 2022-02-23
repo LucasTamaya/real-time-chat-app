@@ -1,3 +1,3 @@
-const template = "http://localhost:3001/";
+const template = " https://react-real-time-chat-backend.herokuapp.com/";
 
 module.exports = template;
