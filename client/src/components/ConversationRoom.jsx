@@ -6,6 +6,8 @@ import axios from "axios";
 import template from "../utils/template";
 import SendIcon from "@mui/icons-material/Send";
 import LoadingData from "./LoadingData";
+import ReactEmoji from "react-emoji";
+import automaticScrollToBottom from "../utils/automaticScrollToBottom";
 
 // connecte le client au serveur
 // const socket = io("https://react-real-time-chat-backend.herokuapp.com/");
@@ -43,13 +45,17 @@ const ConversationRoom = () => {
 
     console.log("status du socket", socket);
 
-    //   connecte le socket client à la conversation room crée
+    //   connecte le socket client à la conversation room sélectionnée
     socket.emit("joinRoom", roomName);
 
+    // détecte la réception de messages des autres utilisateurs
     socket.on("receiveMessage", (data) => {
       setMessageList((prev) => [...prev, data]);
+      // scroll automatique vers le bas pour voir les derniers messages
+      automaticScrollToBottom();
     });
 
+    // détecte si il y a une erreur au niveau des websockets
     socket.on("connect_error", () => {
       alert("connexion error with socket");
     });
@@ -61,10 +67,11 @@ const ConversationRoom = () => {
     };
   }, [socket]);
 
+  // fonction lorsqu'on envoit un message
   const sendMessage = async (e) => {
     e.preventDefault();
     if (currentMessage !== "") {
-      //requete vers websockets et api
+  
       const messageData = {
         conversationRoomName: roomName,
         sender: sessionStorage.getItem("username"),
@@ -79,7 +86,11 @@ const ConversationRoom = () => {
       await socket.emit("sendMessage", messageData);
       setMessageList((prev) => [...prev, messageData]);
 
+      // réinitialise l'input
       setCurrentMessage("");
+
+      // scroll automatique vers le bas pour voir les derniers messages envoyés
+      automaticScrollToBottom();
     }
   };
 
@@ -105,14 +116,20 @@ const ConversationRoom = () => {
               >
                 <div>
                   <p className="message-sender">{x.sender}</p>
-                  <p className="message-paragraph">{x.message}</p>
+                  <p className="message-paragraph">
+                    {ReactEmoji.emojify(x.message)}
+                  </p>
                 </div>
               </div>
-              <p className={`${
+              <p
+                className={`${
                   x.sender === sessionStorage.getItem("username")
                     ? "senderMessage-time"
                     : "guestMessage-time"
-                }`}>{x.date}</p>
+                }`}
+              >
+                {x.date}
+              </p>
             </div>
           ))}
         </div>
