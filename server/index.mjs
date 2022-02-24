@@ -28,8 +28,9 @@ io.on("connection", (socket) => {
 
   // détecte quand on rejoint une conversation room
   socket.on("joinRoom", (data) => {
-    console.log(`user joined room ${data}`);
-    socket.join(data);
+    console.log(`${data.username} joined room ${data.roomName}`);
+    socket.join(data.roomName);
+    socket.to(data.roomName).emit("newUser", data.username);
   });
 
   // détecter les envois de messages
@@ -51,7 +52,7 @@ io.on("connection", (socket) => {
 
   // détecte les déconnexions
   socket.on("disconnect", () => {
-    console.log(`User ${socket.id} just disconnected`);
+    console.log(`User just disconnected`);
   });
 });
 

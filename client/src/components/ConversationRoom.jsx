@@ -17,7 +17,7 @@ const ConversationRoom = () => {
   // represente le message qu'on est entrain de taper
   const [currentMessage, setCurrentMessage] = useState("");
 
-  const [messageList, setMessageList] = useState([]);
+  const [messageList, setMessageList] = useState();
   const [messageError, setMessageError] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -37,6 +37,7 @@ const ConversationRoom = () => {
     if (!data.data.message) {
       setMessageList(data.data);
       setLoading(false);
+      automaticScrollToBottom();
     }
   };
 
@@ -45,13 +46,25 @@ const ConversationRoom = () => {
 
     console.log("status du socket", socket);
 
-    //   connecte le socket client à la conversation room sélectionnée
-    socket.emit("joinRoom", roomName);
+    // connecte le socket client à la conversation room sélectionnée
+    socket.emit("joinRoom", {
+      roomName: roomName,
+      username: sessionStorage.getItem("username"),
+    });
+
+    // détecte l'arrivée de nouveaux utilisateurs
+    socket.on("newUser", (data) => {
+      // informe les utilisateurs de l'arrivé du nouvel utilisateur
+      setMessageList((prev) => [
+        ...prev,
+        { sender: data, message: "joined the conversation" },
+      ]);
+      automaticScrollToBottom();
+    });
 
     // détecte la réception de messages des autres utilisateurs
     socket.on("receiveMessage", (data) => {
       setMessageList((prev) => [...prev, data]);
-      // scroll automatique vers le bas pour voir les derniers messages
       automaticScrollToBottom();
     });
 
@@ -62,7 +75,7 @@ const ConversationRoom = () => {
 
     // clean up function qui déconnecte le socket une fois le composant démonté
     return () => {
-      socket.emit("disconnect");
+      socket.emit("disconnect", sessionStorage.getItem("username"));
       socket.off();
     };
   }, [socket]);
@@ -71,7 +84,6 @@ const ConversationRoom = () => {
   const sendMessage = async (e) => {
     e.preventDefault();
     if (currentMessage !== "") {
-  
       const messageData = {
         conversationRoomName: roomName,
         sender: sessionStorage.getItem("username"),
@@ -89,7 +101,6 @@ const ConversationRoom = () => {
       // réinitialise l'input
       setCurrentMessage("");
 
-      // scroll automatique vers le bas pour voir les derniers messages envoyés
       automaticScrollToBottom();
     }
   };
@@ -105,33 +116,41 @@ const ConversationRoom = () => {
 
       {messageList && (
         <div className="messagesContainer">
-          {messageList.map((x) => (
-            <div key={x._id}>
-              <div
-                className={`${
-                  x.sender === sessionStorage.getItem("username")
-                    ? "senderMessage-container"
-                    : "guestMessage-container"
-                }`}
-              >
-                <div>
-                  <p className="message-sender">{x.sender}</p>
-                  <p className="message-paragraph">
-                    {ReactEmoji.emojify(x.message)}
-                  </p>
+          {/* si aucun message, on affiche un message d'attente */}
+          {messageList.length === 0 ? (
+            <p className="emptyMessageList-message">There are no messages yet</p>
+          ) : (
+            // sinon, on affiche les messages
+            messageList.map((x) => (
+              <div key={x._id}>
+                <div
+                  className={`${
+                    x.message === "joined the conversation"
+                      ? "newUser-container"
+                      : x.sender === sessionStorage.getItem("username")
+                      ? "senderMessage-container"
+                      : "guestMessage-container"
+                  }`}
+                >
+                  <div>
+                    <p className="message-sender">{x.sender}</p>
+                    <p className="message-paragraph">
+                      {ReactEmoji.emojify(x.message)}
+                    </p>
+                  </div>
                 </div>
+                <p
+                  className={`${
+                    x.sender === sessionStorage.getItem("username")
+                      ? "senderMessage-time"
+                      : "guestMessage-time"
+                  }`}
+                >
+                  {x.date}
+                </p>
               </div>
-              <p
-                className={`${
-                  x.sender === sessionStorage.getItem("username")
-                    ? "senderMessage-time"
-                    : "guestMessage-time"
-                }`}
-              >
-                {x.date}
-              </p>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       )}
 
@@ -143,11 +162,7 @@ const ConversationRoom = () => {
           className="conversationRoom-inputContainer-input"
           onChange={(e) => setCurrentMessage(e.target.value)}
         />
-        <button
-          type="submit"
-          className="conversationRoom-inputContainer-btn"
-          // onClick={sendMessage}
-        >
+        <button type="submit" className="conversationRoom-inputContainer-btn">
           <SendIcon sx={{ color: "var(--main-blue)" }} />
         </button>
       </form>
