@@ -14,7 +14,6 @@ const Chat = () => {
   const fetching = async () => {
     setLoading(true);
     const res = await axios.get(`${template}api/conversation`);
-    // const res = await axios.get("http://localhost:3001/api/conversation");
 
     const data = await res;
 

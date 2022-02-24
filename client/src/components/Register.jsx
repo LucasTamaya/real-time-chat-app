@@ -53,8 +53,13 @@ const Register = () => {
 
     const data = await res;
 
-    if (data.data.message === "Existing user error") {
+    if (data.data.message === "Existing email error") {
       setMessageError("This email is already used");
+      setLoading(false);
+    }
+
+    if (data.data.message === "Existing username error") {
+      setMessageError("This username is already used");
       setLoading(false);
     }
 

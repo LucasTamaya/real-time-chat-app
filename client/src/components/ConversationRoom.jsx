@@ -10,8 +10,8 @@ import ReactEmoji from "react-emoji";
 import automaticScrollToBottom from "../utils/automaticScrollToBottom";
 
 // connecte le client au serveur
-// const socket = io("https://react-real-time-chat-backend.herokuapp.com/");
-const socket = io("http://localhost:3001");
+const socket = io("https://react-real-time-chat-backend.herokuapp.com/");
+// const socket = io("http://localhost:3001");
 
 const ConversationRoom = () => {
   // represente le message qu'on est entrain de taper

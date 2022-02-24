@@ -1,4 +1,4 @@
-// const template = "https://react-real-time-chat-backend.herokuapp.com/";
-const template = "http://localhost:3001/";
+const template = "https://react-real-time-chat-backend.herokuapp.com/";
+// const template = "http://localhost:3001/";
 
 module.exports = template;

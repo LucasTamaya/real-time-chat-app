@@ -2,10 +2,6 @@ import express from "express";
 import connectToDatabase from "../utils/mongodb.mjs";
 import bcrypt from "bcrypt";
 
-// a cacher pour plus tard
-const secretToken =
-  "05498965a266cf1fd6b15c60516bc213a12ca646ebeab1420d26418eed45cf719cc2d40aa1499bdb941891e69de083182030e8cd4e1846101ba76c49df6c0da4";
-
 const router = express.Router();
 
 // register route
@@ -15,26 +11,38 @@ router.post("/api/auth/register", async (req, res) => {
   // connexion a la DB
   const { db } = await connectToDatabase();
 
-  //   vérifie que l'utilisateur n'existe pas dans MongoDB
-  const existingUser = await db
+  //   vérifie que l'email n'existe pas dans MongoDB
+  const existingEmail = await db
     .collection("users")
     .find({ email: email })
     .toArray();
 
-  // si utilisateur existant
-  if (existingUser.length >= 1) {
-    console.log("utilisateur existant");
-    return res.send({ message: "Existing user error" });
+  //   vérifie que l'username n'existe pas dans MongoDB
+  const existingName = await db
+    .collection("users")
+    .find({ name: name })
+    .toArray();
+
+  // si email existant
+  if (existingEmail.length >= 1) {
+    console.log("email existant");
+    return res.send({ message: "Existing email error" });
   }
 
-  //   si utilisateur non existant
-  if (existingUser.length < 1) {
+  // si username existant
+  if (existingName.length >= 1) {
+    console.log("username existant");
+    return res.send({ message: "Existing username error" });
+  }
+
+  //   si email et username correcte
+  if (existingEmail.length < 1 && existingName.length < 1) {
     console.log("nouvel utilisateur");
 
     // hash du password avec bcrypt
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password, salt);
-    
+
     // enregistre le nouvel utilisateur dans MongoDB
     const newUser = await db.collection("users").insertOne({
       email: email,
