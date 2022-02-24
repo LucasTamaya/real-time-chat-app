@@ -24,7 +24,7 @@ const io = new Server(server, {
 
 // détecte les connexions
 io.on("connection", (socket) => {
-  console.log("A new user is connected", socket.id, );
+  console.log("A new user is connected", socket.id);
 
   // détecte quand on rejoint une conversation room
   socket.on("joinRoom", (data) => {
@@ -55,13 +55,7 @@ io.on("connection", (socket) => {
   });
 });
 
-// app.use("/api/auth/login", login);
-// app.use("/api/auth/register", register);
-// app.use("/api/conversation", conversation);
-// app.use("/api/messages/", roomName);
-// app.use("/api/user-list", userList);
-
-app.use(authRoutes)
+app.use(authRoutes);
 
 app.use(userListRoute);
 
@@ -70,8 +64,8 @@ app.use(conversationRoomRoutes);
 app.use(previousMessagesRoute);
 
 app.get("/", (req, res) => {
-  return res.json({message: "Server running"})
-})
+  return res.json({ message: "Server running" });
+});
 
 const PORT = process.env.PORT || 3001;
 

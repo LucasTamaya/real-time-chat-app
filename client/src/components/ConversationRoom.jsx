@@ -5,6 +5,7 @@ import io from "socket.io-client";
 import axios from "axios";
 import template from "../utils/template";
 import SendIcon from "@mui/icons-material/Send";
+import LoadingData from "./LoadingData";
 
 // connecte le client au serveur
 // const socket = io("https://react-real-time-chat-backend.herokuapp.com/");
@@ -52,6 +53,12 @@ const ConversationRoom = () => {
     socket.on("connect_error", () => {
       alert("connexion error with socket");
     });
+
+    // clean up function qui déconnecte le socket une fois le composant démonté
+    return () => {
+      socket.emit("disconnect");
+      socket.off();
+    };
   }, [socket]);
 
   const sendMessage = async (e) => {
@@ -79,22 +86,37 @@ const ConversationRoom = () => {
   return (
     <main className="conversationRoom-container">
       <h1 className="conversationRoom-title">{roomName} Conversation</h1>
+      {loading && <LoadingData />}
+
+      {messageError && (
+        <p className="conversationRoom-messageError">{messageError}</p>
+      )}
 
       {messageList && (
         <div className="messagesContainer">
-          {messageList.map(x => (
-            <div className={`${x.sender === sessionStorage.getItem("username") ? "senderMessage-container" : "guestMessage-container"}`}>
-              <p className="message-paragraph">{x.message}</p>
+          {messageList.map((x) => (
+            <div key={x._id}>
+              <div
+                className={`${
+                  x.sender === sessionStorage.getItem("username")
+                    ? "senderMessage-container"
+                    : "guestMessage-container"
+                }`}
+              >
+                <div>
+                  <p className="message-sender">{x.sender}</p>
+                  <p className="message-paragraph">{x.message}</p>
+                </div>
+              </div>
+              <p className={`${
+                  x.sender === sessionStorage.getItem("username")
+                    ? "senderMessage-time"
+                    : "guestMessage-time"
+                }`}>{x.date}</p>
             </div>
           ))}
         </div>
       )}
-  
-      {/* <div className="messagesContainer">
-        <div className="senderMessage-container">
-          <p className="senderMessage-paragraph">Voila un message hyhfyhf uvugihip lihouiujbguo</p>
-        </div>
-      </div> */}
 
       <form className="conversationRoom-inputContainer" onSubmit={sendMessage}>
         <input
@@ -104,7 +126,11 @@ const ConversationRoom = () => {
           className="conversationRoom-inputContainer-input"
           onChange={(e) => setCurrentMessage(e.target.value)}
         />
-        <button type="submit" className="conversationRoom-inputContainer-btn">
+        <button
+          type="submit"
+          className="conversationRoom-inputContainer-btn"
+          // onClick={sendMessage}
+        >
           <SendIcon sx={{ color: "var(--main-blue)" }} />
         </button>
       </form>
@@ -113,43 +139,3 @@ const ConversationRoom = () => {
 };
 
 export default ConversationRoom;
-
-/*
-
-<main className="mainConversationRoom-container">
-      <h1 className="conversationRoom-title">{roomName} Conversation Room</h1>
-      <div className="chatContainer">
-        <div className="messageContainer">
-          {loading && <p>Loading ...</p>}
-          {messageError && <p>{messageError}</p>}
-          {messageList && (
-            <div>
-              {messageList.map((x) => (
-                <div>
-                  <p className={`${x.sender === sessionStorage.getItem("username") ? "senderMessage" : "guestMessage"}`}>
-                    {x.sender} - {x.message}
-                  </p>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-        <div className="inputContainer">
-          <input
-            type="text"
-            placeholder="Chat"
-            onChange={(e) => setCurrentMessage(e.target.value)}
-            className="inputContainer-input"
-          />
-          <button
-            type="submit"
-            onClick={sendMessage}
-            className="inputContainer-btn"
-          >
-            Send
-          </button>
-        </div>
-      </div>
-    </main>
-
-*/

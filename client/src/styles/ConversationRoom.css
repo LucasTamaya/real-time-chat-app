@@ -8,22 +8,28 @@
   margin: 0 auto;
 }
 
+/* Message erreur */
+.conversationRoom-messageError {
+  color: red;
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+}
+
 .conversationRoom-title {
   text-align: center;
   margin-top: 15px;
 }
 
 .messagesContainer {
-  /* background-color: red; */
-  /* position: fixed; */
   padding: 0 15px 15px 15px;
   overflow-y: scroll;
-  height: 50px;
   flex: 1;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   row-gap: 25px;
+  /* background-color: red; */
 }
 
 .senderMessage-container {
@@ -32,12 +38,22 @@
   margin-left: auto;
   padding: 10px;
   border-radius: 15px 15px 2px 15px;
+  width: fit-content;
   max-width: 75%;
 }
 
-.message-paragraph,
 .message-paragraph {
   font-size: 1.3rem;
+}
+
+.message-sender{
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.senderMessage-time{
+  font-size: 1rem;
+  text-align: right;
 }
 
 .guestMessage-container {
@@ -49,16 +65,15 @@
   width: fit-content;
 }
 
+.guestMessage-time{
+  font-size: 1rem;
+}
+
 .conversationRoom-inputContainer {
-  /* position: fixed;
-    bottom: 0; */
-  /* width: 100vw; */
   width: 100%;
-  /* max-width: 1000px; */
   display: flex;
   background-color: var(--main-blue);
   padding: 8px;
-  /* margin-top: 20px; */
   margin: 0 auto;
 }
 
